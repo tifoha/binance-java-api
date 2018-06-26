@@ -4,6 +4,7 @@ import com.binance.api.client.BinanceApiError;
 import com.binance.api.client.constant.BinanceApiConstants;
 import com.binance.api.client.exception.BinanceApiException;
 import com.binance.api.client.security.AuthenticationInterceptor;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.OkHttpClient;
 import org.apache.commons.lang3.StringUtils;
 import retrofit2.Call;
@@ -14,6 +15,8 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 
+import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
+
 /**
  * Generates a Binance API implementation based on @see {@link BinanceApiService}.
  */
@@ -22,9 +25,12 @@ public class BinanceApiServiceGenerator {
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
     private static Retrofit.Builder builder =
-        new Retrofit.Builder()
-            .baseUrl(BinanceApiConstants.API_BASE_URL)
-            .addConverterFactory(JacksonConverterFactory.create());
+            new Retrofit.Builder()
+                    .baseUrl(BinanceApiConstants.API_BASE_URL)
+                    .addConverterFactory(JacksonConverterFactory.create(
+                            new ObjectMapper()
+                                    .disable(FAIL_ON_UNKNOWN_PROPERTIES)
+                    ));
 
     private static Retrofit retrofit = builder.build();
 
@@ -65,7 +71,7 @@ public class BinanceApiServiceGenerator {
      * Extracts and converts the response error body into an object.
      */
     public static BinanceApiError getBinanceApiError(Response<?> response) throws IOException, BinanceApiException {
-        return (BinanceApiError)retrofit.responseBodyConverter(BinanceApiError.class, new Annotation[0])
-            .convert(response.errorBody());
+        return (BinanceApiError) retrofit.responseBodyConverter(BinanceApiError.class, new Annotation[0])
+                .convert(response.errorBody());
     }
 }
