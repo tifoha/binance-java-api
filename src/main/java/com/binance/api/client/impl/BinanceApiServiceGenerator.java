@@ -24,7 +24,10 @@ public class BinanceApiServiceGenerator {
     private static Retrofit.Builder builder =
         new Retrofit.Builder()
             .baseUrl(BinanceApiConstants.API_BASE_URL)
-            .addConverterFactory(JacksonConverterFactory.create());
+            .addConverterFactory(JacksonConverterFactory.create(
+                            new ObjectMapper()
+                                    .disable(FAIL_ON_UNKNOWN_PROPERTIES)
+                    ));
 
     private static Retrofit retrofit = builder.build();
 
