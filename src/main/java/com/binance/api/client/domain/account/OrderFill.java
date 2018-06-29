@@ -1,20 +1,19 @@
 package com.binance.api.client.domain.account;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.math.BigDecimal;
 
 /**
- * Represents an executed trade.
+ * Represents an order fill trade.
  */
-public class Trade {
+public class OrderFill {
 
   /**
    * Trade id.
    */
-  private Long id;
+  private Long tradeId;
 
   /**
    * Price.
@@ -36,28 +35,12 @@ public class Trade {
    */
   private String commissionAsset;
 
-  /**
-   * Trade execution time.
-   */
-  private long time;
-
-  @JsonProperty("isBuyer")
-  private boolean buyer;
-
-  @JsonProperty("isMaker")
-  private boolean maker;
-
-  @JsonProperty("isBestMatch")
-  private boolean bestMatch;
-
-  private String orderId;
-
-  public Long getId() {
-    return id;
+  public Long getTradeId() {
+    return tradeId;
   }
 
-  public void setId(Long id) {
-    this.id = id;
+  public void setTradeId(Long tradeId) {
+    this.tradeId = tradeId;
   }
 
   public BigDecimal getPrice() {
@@ -92,59 +75,14 @@ public class Trade {
     this.commissionAsset = commissionAsset;
   }
 
-  public long getTime() {
-    return time;
-  }
-
-  public void setTime(long time) {
-    this.time = time;
-  }
-
-  public boolean isBuyer() {
-    return buyer;
-  }
-
-  public void setBuyer(boolean buyer) {
-    this.buyer = buyer;
-  }
-
-  public boolean isMaker() {
-    return maker;
-  }
-
-  public void setMaker(boolean maker) {
-    this.maker = maker;
-  }
-
-  public boolean isBestMatch() {
-    return bestMatch;
-  }
-
-  public void setBestMatch(boolean bestMatch) {
-    this.bestMatch = bestMatch;
-  }
-
-  public String getOrderId() {
-    return orderId;
-  }
-
-  public void setOrderId(String orderId) {
-    this.orderId = orderId;
-  }
-
   @Override
   public String toString() {
     return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
-        .append("id", id)
+        .append("id", tradeId)
         .append("price", price)
         .append("qty", qty)
         .append("commission", commission)
         .append("commissionAsset", commissionAsset)
-        .append("time", time)
-        .append("buyer", buyer)
-        .append("maker", maker)
-        .append("bestMatch", bestMatch)
-        .append("orderId", orderId)
         .toString();
   }
 }

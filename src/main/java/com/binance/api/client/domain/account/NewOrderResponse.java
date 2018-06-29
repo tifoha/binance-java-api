@@ -1,8 +1,15 @@
 package com.binance.api.client.domain.account;
 
+import com.binance.api.client.domain.OrderSide;
+import com.binance.api.client.domain.OrderStatus;
+import com.binance.api.client.domain.OrderType;
+import com.binance.api.client.domain.TimeInForce;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * Response returned when placing a new order on the system.
@@ -12,66 +19,146 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class NewOrderResponse {
 
-  /**
-   * Order symbol.
-   */
-  private String symbol;
+    /**
+     * Order symbol.
+     */
+    private String symbol;
 
-  /**
-   * Order id.
-   */
-  private Long orderId;
+    /**
+     * Order id.
+     */
+    private Long orderId;
 
-  /**
-   * This will be either a generated one, or the newClientOrderId parameter
-   * which was passed when creating the new order.
-   */
-  private String clientOrderId;
+    /**
+     * This will be either a generated one, or the newClientOrderId parameter
+     * which was passed when creating the new order.
+     */
+    private String clientOrderId;
 
-  /**
-   * Transact time for this order.
-   */
-  private Long transactTime;
+    /**
+     * Transact time for this order.
+     */
+    private Long transactTime;
 
-  public String getSymbol() {
-    return symbol;
-  }
+    private BigDecimal price;
 
-  public void setSymbol(String symbol) {
-    this.symbol = symbol;
-  }
+    private BigDecimal origQty;
 
-  public Long getOrderId() {
-    return orderId;
-  }
+    private BigDecimal executedQty;
 
-  public void setOrderId(Long orderId) {
-    this.orderId = orderId;
-  }
+    private OrderStatus status;
 
-  public String getClientOrderId() {
-    return clientOrderId;
-  }
+    private TimeInForce timeInForce;
 
-  public void setClientOrderId(String clientOrderId) {
-    this.clientOrderId = clientOrderId;
-  }
+    private OrderType type;
 
-  public Long getTransactTime() {
-    return transactTime;
-  }
+    private OrderSide side;
 
-  public void setTransactTime(Long transactTime) {
-    this.transactTime = transactTime;
-  }
+    private List<OrderFill> fills;
 
-  @Override
-  public String toString() {
-    return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
-        .append("symbol", symbol)
-        .append("orderId", orderId)
-        .append("clientOrderId", clientOrderId)
-        .append("transactTime", transactTime)
-        .toString();
-  }
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
+    }
+
+    public Long getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
+    }
+
+    public String getClientOrderId() {
+        return clientOrderId;
+    }
+
+    public void setClientOrderId(String clientOrderId) {
+        this.clientOrderId = clientOrderId;
+    }
+
+    public Long getTransactTime() {
+        return transactTime;
+    }
+
+    public void setTransactTime(Long transactTime) {
+        this.transactTime = transactTime;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public BigDecimal getOrigQty() {
+        return origQty;
+    }
+
+    public void setOrigQty(BigDecimal origQty) {
+        this.origQty = origQty;
+    }
+
+    public BigDecimal getExecutedQty() {
+        return executedQty;
+    }
+
+    public void setExecutedQty(BigDecimal executedQty) {
+        this.executedQty = executedQty;
+    }
+
+    public OrderStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;
+    }
+
+    public TimeInForce getTimeInForce() {
+        return timeInForce;
+    }
+
+    public void setTimeInForce(TimeInForce timeInForce) {
+        this.timeInForce = timeInForce;
+    }
+
+    public OrderType getType() {
+        return type;
+    }
+
+    public void setType(OrderType type) {
+        this.type = type;
+    }
+
+    public OrderSide getSide() {
+        return side;
+    }
+
+    public void setSide(OrderSide side) {
+        this.side = side;
+    }
+
+    public List<OrderFill> getFills() {
+        return fills;
+    }
+
+    public void setFills(List<OrderFill> fills) {
+        this.fills = fills;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+                .append("symbol", symbol)
+                .append("orderId", orderId)
+                .append("clientOrderId", clientOrderId)
+                .append("transactTime", transactTime)
+                .toString();
+    }
 }

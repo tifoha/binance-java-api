@@ -3,6 +3,8 @@ package com.binance.api.client.domain.account;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import java.math.BigDecimal;
+
 /**
  * An asset balance in an Account.
  *
@@ -18,12 +20,12 @@ public class AssetBalance {
   /**
    * Available balance.
    */
-  private String free;
+  private BigDecimal free;
 
   /**
    * Locked by open orders.
    */
-  private String locked;
+  private BigDecimal locked;
 
   public String getAsset() {
     return asset;
@@ -33,19 +35,19 @@ public class AssetBalance {
     this.asset = asset;
   }
 
-  public String getFree() {
+  public BigDecimal getFree() {
     return free;
   }
 
-  public void setFree(String free) {
+  public void setFree(BigDecimal free) {
     this.free = free;
   }
 
-  public String getLocked() {
+  public BigDecimal getLocked() {
     return locked;
   }
 
-  public void setLocked(String locked) {
+  public void setLocked(BigDecimal locked) {
     this.locked = locked;
   }
 
@@ -53,8 +55,8 @@ public class AssetBalance {
   public String toString() {
     return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
         .append("asset", asset)
-        .append("free", free)
-        .append("locked", locked)
+        .append("free", free.toPlainString())
+        .append("locked", locked.toPlainString())
         .toString();
   }
 }

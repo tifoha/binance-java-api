@@ -21,6 +21,7 @@ import com.binance.api.client.domain.market.CandlestickInterval;
 import com.binance.api.client.domain.market.OrderBook;
 import com.binance.api.client.domain.market.TickerPrice;
 import com.binance.api.client.domain.market.TickerStatistics;
+import com.binance.api.client.domain.market.info.ExchangeInfo;
 
 import java.util.List;
 
@@ -65,7 +66,7 @@ public interface BinanceApiAsyncRestClient {
    * @param startTime Timestamp in ms to get aggregate trades from INCLUSIVE (optional).
    * @param endTime Timestamp in ms to get aggregate trades until INCLUSIVE (optional).
    * @param callback the callback that handles the response
-   * @return a list of aggregate trades for the given symbol
+   * return a list of aggregate trades for the given symbol
    */
   void getAggTrades(String symbol, String fromId, Integer limit, Long startTime, Long endTime, BinanceApiCallback<List<AggTrade>> callback);
 
@@ -119,7 +120,9 @@ public interface BinanceApiAsyncRestClient {
 
   // Account endpoints
 
-  /**
+    void getExchangeInfo(BinanceApiCallback<ExchangeInfo> callback);
+
+    /**
    * Send in a new order (asynchronous)
    *
    * @param order the new order to submit.

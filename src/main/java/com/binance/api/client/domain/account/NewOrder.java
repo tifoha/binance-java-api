@@ -1,6 +1,7 @@
 package com.binance.api.client.domain.account;
 
 import com.binance.api.client.constant.BinanceApiConstants;
+import com.binance.api.client.domain.OrderResponseType;
 import com.binance.api.client.domain.OrderSide;
 import com.binance.api.client.domain.OrderType;
 import com.binance.api.client.domain.TimeInForce;
@@ -63,6 +64,11 @@ public class NewOrder {
    * Receiving window.
    */
   private Long recvWindow;
+
+  /**
+   * Set the response JSON. ACK, RESULT, or FULL; default: RESULT.
+   */
+  private OrderResponseType orderResponseType;
 
   /**
    * Order timestamp.
@@ -186,6 +192,15 @@ public class NewOrder {
 
   public NewOrder timestamp(long timestamp) {
     this.timestamp = timestamp;
+    return this;
+  }
+
+  public OrderResponseType getOrderResponseType() {
+    return orderResponseType;
+  }
+
+  public NewOrder orderResponseType(OrderResponseType orderResponseType) {
+    this.orderResponseType = orderResponseType;
     return this;
   }
 

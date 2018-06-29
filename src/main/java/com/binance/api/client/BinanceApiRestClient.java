@@ -19,6 +19,7 @@ import com.binance.api.client.domain.market.CandlestickInterval;
 import com.binance.api.client.domain.market.OrderBook;
 import com.binance.api.client.domain.market.TickerPrice;
 import com.binance.api.client.domain.market.TickerStatistics;
+import com.binance.api.client.domain.market.info.ExchangeInfo;
 
 import java.util.List;
 
@@ -110,7 +111,9 @@ public interface BinanceApiRestClient {
 
   // Account endpoints
 
-  /**
+    ExchangeInfo getExchangeInfo();
+
+    /**
    * Send in a new order.
    *
    * @param order the new order to submit.

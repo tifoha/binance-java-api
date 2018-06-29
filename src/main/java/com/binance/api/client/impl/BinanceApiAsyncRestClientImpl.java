@@ -24,6 +24,7 @@ import com.binance.api.client.domain.market.CandlestickInterval;
 import com.binance.api.client.domain.market.OrderBook;
 import com.binance.api.client.domain.market.TickerPrice;
 import com.binance.api.client.domain.market.TickerStatistics;
+import com.binance.api.client.domain.market.info.ExchangeInfo;
 
 import java.util.List;
 
@@ -49,7 +50,7 @@ public class BinanceApiAsyncRestClientImpl implements BinanceApiAsyncRestClient 
 
   @Override
   public void getServerTime(BinanceApiCallback<ServerTime> callback) {
-    binanceApiService.getServerTime().equals(new BinanceApiCallbackAdapter<>(callback));
+    binanceApiService.getServerTime().enqueue(new BinanceApiCallbackAdapter<>(callback));
   }
 
   // Market Data endpoints
@@ -95,10 +96,15 @@ public class BinanceApiAsyncRestClientImpl implements BinanceApiAsyncRestClient 
   }
 
   @Override
+  public void getExchangeInfo(BinanceApiCallback<ExchangeInfo> callback) {
+    binanceApiService.getExchangeInfo().enqueue(new BinanceApiCallbackAdapter<>(callback));
+  }
+
+  @Override
   public void newOrder(NewOrder order, BinanceApiCallback<NewOrderResponse> callback) {
     binanceApiService.newOrder(order.getSymbol(), order.getSide(), order.getType(),
         order.getTimeInForce(), order.getQuantity(), order.getPrice(), order.getStopPrice(), order.getIcebergQty(),
-        order.getRecvWindow(), order.getTimestamp()).enqueue(new BinanceApiCallbackAdapter<>(callback));
+        order.getRecvWindow(), order.getOrderResponseType(), order.getTimestamp()).enqueue(new BinanceApiCallbackAdapter<>(callback));
   }
 
   @Override
