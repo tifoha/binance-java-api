@@ -25,7 +25,6 @@ import com.binance.api.client.domain.market.Candlestick;
 import com.binance.api.client.domain.market.OrderBook;
 import com.binance.api.client.domain.market.TickerPrice;
 import com.binance.api.client.domain.market.TickerStatistics;
-import com.binance.api.client.domain.market.info.ExchangeInfo;
 import retrofit2.Call;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
@@ -50,23 +49,25 @@ public interface BinanceApiService {
     @GET("/api/v1/time")
     Call<ServerTime> getServerTime();
 
-  @GET("/api/v1/exchangeInfo")
-  Call<ExchangeInfo> getExchangeInfo();
+    @GET("/api/v1/exchangeInfo")
+    Call<ExchangeInfo> getExchangeInfo();
 
-  @GET
-  Call<List<Asset>> getAllAssets(@Url String url);// Market data endpoints
+    @GET
+    Call<List<Asset>> getAllAssets(@Url String url);
+
+    // Market data endpoints
 
     @GET("/api/v1/depth")
     Call<OrderBook> getOrderBook(@Query("symbol") String symbol, @Query("limit") Integer limit);
 
     @GET("/api/v1/trades")
-  Call<List<TradeHistoryItem>> getTrades(@Query("symbol") String symbol, @Query("limit") Integer limit);
+    Call<List<TradeHistoryItem>> getTrades(@Query("symbol") String symbol, @Query("limit") Integer limit);
 
-  @Headers(BinanceApiConstants.ENDPOINT_SECURITY_TYPE_APIKEY_HEADER)
-  @GET("/api/v1/historicalTrades")
-  Call<List<TradeHistoryItem>> getHistoricalTrades(@Query("symbol") String symbol, @Query("limit") Integer limit, @Query("fromId") Long fromId);
+    @Headers(BinanceApiConstants.ENDPOINT_SECURITY_TYPE_APIKEY_HEADER)
+    @GET("/api/v1/historicalTrades")
+    Call<List<TradeHistoryItem>> getHistoricalTrades(@Query("symbol") String symbol, @Query("limit") Integer limit, @Query("fromId") Long fromId);
 
-  @GET("/api/v1/aggTrades")
+    @GET("/api/v1/aggTrades")
     Call<List<AggTrade>> getAggTrades(@Query("symbol") String symbol, @Query("fromId") String fromId, @Query("limit") Integer limit,
                                       @Query("startTime") Long startTime, @Query("endTime") Long endTime);
 
@@ -78,20 +79,16 @@ public interface BinanceApiService {
     Call<TickerStatistics> get24HrPriceStatistics(@Query("symbol") String symbol);
 
     @GET("/api/v1/ticker/24hr")
-  Call<List<TickerStatistics>> getAll24HrPriceStatistics();
+    Call<List<TickerStatistics>> getAll24HrPriceStatistics();
 
-  @GET("/api/v1/ticker/allPrices")
+    @GET("/api/v1/ticker/allPrices")
     Call<List<TickerPrice>> getLatestPrices();
 
     @GET("/api/v3/ticker/price")
-  Call<TickerPrice> getLatestPrice(@Query("symbol") String symbol);
+    Call<TickerPrice> getLatestPrice(@Query("symbol") String symbol);
 
-  @GET("/api/v1/ticker/allBookTickers")
+    @GET("/api/v1/ticker/allBookTickers")
     Call<List<BookTicker>> getBookTickers();
-
-    @GET("/api/v1/exchangeInfo")
-    Call<ExchangeInfo> getExchangeInfo();
-
 
     // Account endpoints
 
@@ -100,7 +97,7 @@ public interface BinanceApiService {
     Call<NewOrderResponse> newOrder(@Query("symbol") String symbol, @Query("side") OrderSide side, @Query("type") OrderType type,
                                     @Query("timeInForce") TimeInForce timeInForce, @Query("quantity") String quantity, @Query("price") String price,
                                     @Query("newClientOrderId") String newClientOrderId, @Query("stopPrice") String stopPrice,
-                                  @Query("icebergQty") String icebergQty, @Query("newOrderRespType") NewOrderResponseType newOrderRespType,
+                                    @Query("icebergQty") String icebergQty, @Query("newOrderRespType") NewOrderResponseType newOrderRespType,
                                     @Query("recvWindow") Long recvWindow, @Query("newOrderRespType") OrderResponseType orderResponseType,
                                     @Query("timestamp") Long timestamp);
 
@@ -109,7 +106,7 @@ public interface BinanceApiService {
     Call<Void> newOrderTest(@Query("symbol") String symbol, @Query("side") OrderSide side, @Query("type") OrderType type,
                             @Query("timeInForce") TimeInForce timeInForce, @Query("quantity") String quantity, @Query("price") String price,
                             @Query("newClientOrderId") String newClientOrderId, @Query("stopPrice") String stopPrice,
-                          @Query("icebergQty") String icebergQty, @Query("newOrderRespType") NewOrderResponseType newOrderRespType,
+                            @Query("icebergQty") String icebergQty, @Query("newOrderRespType") NewOrderResponseType newOrderRespType,
                             @Query("recvWindow") Long recvWindow,
                             @Query("timestamp") Long timestamp);
 
@@ -144,10 +141,10 @@ public interface BinanceApiService {
     Call<List<Trade>> getMyTrades(@Query("symbol") String symbol, @Query("limit") Integer limit, @Query("fromId") Long fromId,
                                   @Query("recvWindow") Long recvWindow, @Query("timestamp") Long timestamp);
 
-  @Headers(BinanceApiConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER)
-  @POST("/wapi/v3/withdraw.html")
-  Call<WithdrawResult> withdraw(@Query("asset") String asset, @Query("address") String address, @Query("amount") String amount, @Query("name") String name,@Query("addressTag") String addressTag,
-                      @Query("recvWindow") Long recvWindow, @Query("timestamp") Long timestamp);
+    @Headers(BinanceApiConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER)
+    @POST("/wapi/v3/withdraw.html")
+    Call<WithdrawResult> withdraw(@Query("asset") String asset, @Query("address") String address, @Query("amount") String amount, @Query("name") String name, @Query("addressTag") String addressTag,
+                                  @Query("recvWindow") Long recvWindow, @Query("timestamp") Long timestamp);
 
 
     @Headers(BinanceApiConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER)

@@ -5,8 +5,8 @@ import com.binance.api.client.BinanceApiRestClient;
 import com.binance.api.client.domain.general.Asset;
 import com.binance.api.client.domain.general.ExchangeInfo;
 import com.binance.api.client.domain.general.FilterType;
-import com.binance.api.client.domain.general.SymbolFilter;
 import com.binance.api.client.domain.general.SymbolInfo;
+import com.binance.api.client.domain.general.filter.order.SymbolFilter;
 
 import java.util.List;
 
@@ -31,13 +31,13 @@ public class GeneralEndpointsExample {
     System.out.println(exchangeInfo.getTimezone());
     System.out.println(exchangeInfo.getSymbols());
 
-    // Obtain symbol information
-    SymbolInfo symbolInfo = exchangeInfo.getSymbolInfo("ETHBTC");
-    System.out.println(symbolInfo.getStatus());
-
-    SymbolFilter priceFilter = symbolInfo.getSymbolFilter(FilterType.PRICE_FILTER);
-    System.out.println(priceFilter.getMinPrice());
-    System.out.println(priceFilter.getTickSize());
+//    // Obtain symbol information
+//    SymbolInfo symbolInfo = exchangeInfo.getSymbolInfo("ETHBTC");
+//    System.out.println(symbolInfo.getStatus());
+//
+//    SymbolFilter priceFilter = symbolInfo.getSymbolFilter(FilterType.PRICE_FILTER);
+//    System.out.println(priceFilter.getMinPrice());
+//    System.out.println(priceFilter.getTickSize());
 
     // Obtain asset information
     List<Asset> allAssets = client.getAllAssets();

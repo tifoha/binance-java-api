@@ -1,4 +1,4 @@
-package com.binance.api.client.domain.market.info.filter;
+package com.binance.api.client.domain.general.filter.order;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
@@ -17,7 +17,7 @@ import java.math.BigDecimal;
  * (price-minPrice) % tickSize == 0
  */
 @JsonTypeName("PRICE_FILTER")
-public class PriceFilter implements Filter {
+public class PriceFilter implements SymbolFilter {
   private BigDecimal minPrice;
   private BigDecimal maxPrice;
   private BigDecimal tickSize;

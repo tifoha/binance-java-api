@@ -1,4 +1,4 @@
-package com.binance.api.client.domain.market.info.filter;
+package com.binance.api.client.domain.general.filter.order;
 
 import java.math.BigDecimal;
 
@@ -14,7 +14,7 @@ import java.math.BigDecimal;
  * quantity <= maxQty
  * (quantity-minQty) % stepSize == 0
  */
-public class LotSizeFilter implements Filter {
+public class LotSizeFilter implements SymbolFilter {
    private BigDecimal minQty;
    private BigDecimal maxQty;
    private BigDecimal stepSize;

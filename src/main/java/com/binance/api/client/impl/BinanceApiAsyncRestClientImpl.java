@@ -28,7 +28,6 @@ import com.binance.api.client.domain.market.CandlestickInterval;
 import com.binance.api.client.domain.market.OrderBook;
 import com.binance.api.client.domain.market.TickerPrice;
 import com.binance.api.client.domain.market.TickerStatistics;
-import com.binance.api.client.domain.market.info.ExchangeInfo;
 
 import java.util.List;
 
@@ -128,11 +127,6 @@ public class BinanceApiAsyncRestClientImpl implements BinanceApiAsyncRestClient 
   @Override
   public void getBookTickers(BinanceApiCallback<List<BookTicker>> callback) {
     binanceApiService.getBookTickers().enqueue(new BinanceApiCallbackAdapter<>(callback));
-  }
-
-  @Override
-  public void getExchangeInfo(BinanceApiCallback<ExchangeInfo> callback) {
-    binanceApiService.getExchangeInfo().enqueue(new BinanceApiCallbackAdapter<>(callback));
   }
 
   @Override

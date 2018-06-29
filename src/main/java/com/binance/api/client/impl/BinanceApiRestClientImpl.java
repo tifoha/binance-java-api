@@ -25,7 +25,6 @@ import com.binance.api.client.domain.market.CandlestickInterval;
 import com.binance.api.client.domain.market.OrderBook;
 import com.binance.api.client.domain.market.TickerPrice;
 import com.binance.api.client.domain.market.TickerStatistics;
-import com.binance.api.client.domain.market.info.ExchangeInfo;
 
 import java.util.List;
 
@@ -55,15 +54,15 @@ public class BinanceApiRestClientImpl implements BinanceApiRestClient {
         return executeSync(binanceApiService.getServerTime()).getServerTime();
     }
 
-  @Override
-  public ExchangeInfo getExchangeInfo() {
-    return executeSync(binanceApiService.getExchangeInfo());
-  }
+    @Override
+    public ExchangeInfo getExchangeInfo() {
+        return executeSync(binanceApiService.getExchangeInfo());
+    }
 
-  @Override
-  public List<Asset> getAllAssets() {
-    return executeSync(binanceApiService.getAllAssets(BinanceApiConstants.ASSET_INFO_API_BASE_URL + "assetWithdraw/getAllAsset.html"));
-  }// Market Data endpoints
+    @Override
+    public List<Asset> getAllAssets() {
+        return executeSync(binanceApiService.getAllAssets(BinanceApiConstants.ASSET_INFO_API_BASE_URL + "assetWithdraw/getAllAsset.html"));
+    }// Market Data endpoints
 
     @Override
     public OrderBook getOrderBook(String symbol, Integer limit) {
@@ -71,16 +70,16 @@ public class BinanceApiRestClientImpl implements BinanceApiRestClient {
     }
 
     @Override
-  public List<TradeHistoryItem> getTrades(String symbol, Integer limit) {
-    return executeSync(binanceApiService.getTrades(symbol, limit));
-  }
+    public List<TradeHistoryItem> getTrades(String symbol, Integer limit) {
+        return executeSync(binanceApiService.getTrades(symbol, limit));
+    }
 
-  @Override
-  public List<TradeHistoryItem> getHistoricalTrades(String symbol, Integer limit, Long fromId) {
-    return executeSync(binanceApiService.getHistoricalTrades(symbol, limit, fromId));
-  }
+    @Override
+    public List<TradeHistoryItem> getHistoricalTrades(String symbol, Integer limit, Long fromId) {
+        return executeSync(binanceApiService.getHistoricalTrades(symbol, limit, fromId));
+    }
 
-  @Override
+    @Override
     public List<AggTrade> getAggTrades(String symbol, String fromId, Integer limit, Long startTime, Long endTime) {
         return executeSync(binanceApiService.getAggTrades(symbol, fromId, limit, startTime, endTime));
     }
@@ -106,16 +105,16 @@ public class BinanceApiRestClientImpl implements BinanceApiRestClient {
     }
 
     @Override
-  public List<TickerStatistics> getAll24HrPriceStatistics() {
-	return 	executeSync(binanceApiService.getAll24HrPriceStatistics());
-  }
+    public List<TickerStatistics> getAll24HrPriceStatistics() {
+        return executeSync(binanceApiService.getAll24HrPriceStatistics());
+    }
 
-  @Override
-  public TickerPrice getPrice(String symbol) {
-	  return executeSync(binanceApiService.getLatestPrice(symbol));
-  }
+    @Override
+    public TickerPrice getPrice(String symbol) {
+        return executeSync(binanceApiService.getLatestPrice(symbol));
+    }
 
-  @Override
+    @Override
     public List<TickerPrice> getAllPrices() {
         return executeSync(binanceApiService.getLatestPrices());
     }
@@ -125,24 +124,19 @@ public class BinanceApiRestClientImpl implements BinanceApiRestClient {
         return executeSync(binanceApiService.getBookTickers());
     }
 
-  @Override
-    public ExchangeInfo getExchangeInfo() {
-        return executeSync(binanceApiService.getExchangeInfo());
+    @Override
+    public NewOrderResponse newOrder(NewOrder order) {
+        return executeSync(binanceApiService.newOrder(order.getSymbol(), order.getSide(), order.getType(),
+                order.getTimeInForce(), order.getQuantity(), order.getPrice(), order.getNewClientOrderId(), order.getStopPrice(), order.getIcebergQty(),
+                order.getNewOrderRespType(), order.getRecvWindow(), order.getOrderResponseType(), order.getTimestamp()));
     }
 
     @Override
-  public NewOrderResponse newOrder(NewOrder order) {
-    return executeSync(binanceApiService.newOrder(order.getSymbol(), order.getSide(), order.getType(),
-        order.getTimeInForce(), order.getQuantity(), order.getPrice(), order.getNewClientOrderId(),order.getStopPrice(), order.getIcebergQty(),
-       order.getNewOrderRespType(), order.getRecvWindow(), order.getOrderResponseType(),order.getTimestamp()));
-  }
-
-  @Override
-  public void newOrderTest(NewOrder order) {
-    executeSync(binanceApiService.newOrderTest(order.getSymbol(), order.getSide(), order.getType(),
-        order.getTimeInForce(), order.getQuantity(), order.getPrice(), order.getNewClientOrderId(),order.getStopPrice(), order.getIcebergQty(),
-       order.getNewOrderRespType(), order.getRecvWindow(), order.getTimestamp()));
-  }
+    public void newOrderTest(NewOrder order) {
+        executeSync(binanceApiService.newOrderTest(order.getSymbol(), order.getSide(), order.getType(),
+                order.getTimeInForce(), order.getQuantity(), order.getPrice(), order.getNewClientOrderId(), order.getStopPrice(), order.getIcebergQty(),
+                order.getNewOrderRespType(), order.getRecvWindow(), order.getTimestamp()));
+    }
 
     // Account endpoints
 
@@ -197,10 +191,10 @@ public class BinanceApiRestClientImpl implements BinanceApiRestClient {
         return getMyTrades(symbol, null, null, BinanceApiConstants.DEFAULT_RECEIVING_WINDOW, System.currentTimeMillis());
     }
 
-  @Override
-  public WithdrawResult withdraw(String asset, String address, String amount, String name, String addressTag) {
-    return executeSync(binanceApiService.withdraw(asset, address, amount, name, addressTag,BinanceApiConstants.DEFAULT_RECEIVING_WINDOW, System.currentTimeMillis()));
-  }
+    @Override
+    public WithdrawResult withdraw(String asset, String address, String amount, String name, String addressTag) {
+        return executeSync(binanceApiService.withdraw(asset, address, amount, name, addressTag, BinanceApiConstants.DEFAULT_RECEIVING_WINDOW, System.currentTimeMillis()));
+    }
 
     @Override
     public DepositHistory getDepositHistory(String asset) {

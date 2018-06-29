@@ -1,5 +1,8 @@
-package com.binance.api.client.domain.market.info.filter;
+package com.binance.api.client.domain.general.filter;
 
+import com.binance.api.client.domain.general.filter.exchange.MaxAlgorithmOrdersExchangeFilter;
+import com.binance.api.client.domain.general.filter.exchange.MaxNumberOrdersExchangeFilter;
+import com.binance.api.client.domain.general.filter.order.*;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
@@ -10,8 +13,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @JsonSubTypes.Type(value = MinNotionalFilter.class, name = "MIN_NOTIONAL"),
         @JsonSubTypes.Type(value = MaxNumberOrdersFilter.class, name = "MAX_NUM_ORDERS"),
         @JsonSubTypes.Type(value = MaxAlgorithmOrdersFilter.class, name = "MAX_ALGO_ORDERS"),
-        @JsonSubTypes.Type(value = MaxExchangeNumberOrdersFilter.class, name = "EXCHANGE_MAX_NUM_ORDERS"),
-        @JsonSubTypes.Type(value = MaxExchangeAlgorithmOrdersFilter.class, name = "EXCHANGE_MAX_ALGO_ORDERS")
+        @JsonSubTypes.Type(value = MaxNumberOrdersExchangeFilter.class, name = "EXCHANGE_MAX_NUM_ORDERS"),
+        @JsonSubTypes.Type(value = MaxAlgorithmOrdersExchangeFilter.class, name = "EXCHANGE_MAX_ALGO_ORDERS")
 })
 public interface Filter {
 }

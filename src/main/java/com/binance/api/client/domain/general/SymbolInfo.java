@@ -1,131 +1,109 @@
 package com.binance.api.client.domain.general;
 
-import com.binance.api.client.constant.BinanceApiConstants;
 import com.binance.api.client.domain.OrderType;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.apache.commons.lang3.builder.ToStringBuilder;
+import com.binance.api.client.domain.general.filter.order.PriceFilter;
+import com.binance.api.client.domain.general.filter.order.SymbolFilter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
+import java.util.Set;
 
-/**
- * Symbol information (base/quote).
- */
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class SymbolInfo {
+    private String symbol;
 
-  private String symbol;
+    private SymbolStatus status;
 
-  private SymbolStatus status;
+    @JsonProperty("quoteAsset")
+    private String base;
 
-  private String baseAsset;
+    @JsonProperty("quotePrecision")
+    private int basePrecision;
 
-  private Integer baseAssetPrecision;
+    @JsonProperty("baseAsset")
+    private String quote;
 
-  private String quoteAsset;
+    @JsonProperty("baseAssetPrecision")
+    private int quotePrecision;
 
-  private Integer quotePrecision;
+    private Set<OrderType> orderTypes;
 
-  private List<OrderType> orderTypes;
+    private boolean icebergAllowed;
 
-  private boolean icebergAllowed;
+    private List<SymbolFilter> filters;
 
-  private List<SymbolFilter> filters;
+    public String getSymbol() {
+        return symbol;
+    }
 
-  public String getSymbol() {
-    return symbol;
-  }
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
+    }
 
-  public void setSymbol(String symbol) {
-    this.symbol = symbol;
-  }
+    public SymbolStatus getStatus() {
+        return status;
+    }
 
-  public SymbolStatus getStatus() {
-    return status;
-  }
+    public void setStatus(SymbolStatus status) {
+        this.status = status;
+    }
 
-  public void setStatus(SymbolStatus status) {
-    this.status = status;
-  }
+    public String getBase() {
+        return base;
+    }
 
-  public String getBaseAsset() {
-    return baseAsset;
-  }
+    public void setBase(String base) {
+        this.base = base;
+    }
 
-  public void setBaseAsset(String baseAsset) {
-    this.baseAsset = baseAsset;
-  }
+    public int getBasePrecision() {
+        return basePrecision;
+    }
 
-  public Integer getBaseAssetPrecision() {
-    return baseAssetPrecision;
-  }
+    public void setBasePrecision(int basePrecision) {
+        this.basePrecision = basePrecision;
+    }
 
-  public void setBaseAssetPrecision(Integer baseAssetPrecision) {
-    this.baseAssetPrecision = baseAssetPrecision;
-  }
+    public String getQuote() {
+        return quote;
+    }
 
-  public String getQuoteAsset() {
-    return quoteAsset;
-  }
+    public void setQuote(String quote) {
+        this.quote = quote;
+    }
 
-  public void setQuoteAsset(String quoteAsset) {
-    this.quoteAsset = quoteAsset;
-  }
+    public int getQuotePrecision() {
+        return quotePrecision;
+    }
 
-  public Integer getQuotePrecision() {
-    return quotePrecision;
-  }
+    public void setQuotePrecision(int quotePrecision) {
+        this.quotePrecision = quotePrecision;
+    }
 
-  public void setQuotePrecision(Integer quotePrecision) {
-    this.quotePrecision = quotePrecision;
-  }
+    public Set<OrderType> getOrderTypes() {
+        return orderTypes;
+    }
 
-  public List<OrderType> getOrderTypes() {
-    return orderTypes;
-  }
+    public void setOrderTypes(Set<OrderType> orderTypes) {
+        this.orderTypes = orderTypes;
+    }
 
-  public void setOrderTypes(List<OrderType> orderTypes) {
-    this.orderTypes = orderTypes;
-  }
+    public boolean isIcebergAllowed() {
+        return icebergAllowed;
+    }
 
-  public boolean isIcebergAllowed() {
-    return icebergAllowed;
-  }
+    public void setIcebergAllowed(boolean icebergAllowed) {
+        this.icebergAllowed = icebergAllowed;
+    }
 
-  public void setIcebergAllowed(boolean icebergAllowed) {
-    this.icebergAllowed = icebergAllowed;
-  }
+    public List<SymbolFilter> getFilters() {
+        return filters;
+    }
 
-  public List<SymbolFilter> getFilters() {
-    return filters;
-  }
+    public void setFilters(List<SymbolFilter> filters) {
+        this.filters = filters;
+    }
 
-  public void setFilters(List<SymbolFilter> filters) {
-    this.filters = filters;
-  }
-
-  /**
-   * @param filterType filter type to filter for.
-   * @return symbol filter information for the provided filter type.
-   */
-  public SymbolFilter getSymbolFilter(FilterType filterType) {
-    return filters.stream()
-        .filter(symbolFilter -> symbolFilter.getFilterType() == filterType)
-        .findFirst()
-        .get();
-  }
-
-  @Override
-  public String toString() {
-    return new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE)
-        .append("symbol", symbol)
-        .append("status", status)
-        .append("baseAsset", baseAsset)
-        .append("baseAssetPrecision", baseAssetPrecision)
-        .append("quoteAsset", quoteAsset)
-        .append("quotePrecision", quotePrecision)
-        .append("orderTypes", orderTypes)
-        .append("icebergAllowed", icebergAllowed)
-        .append("filters", filters)
-        .toString();
-  }
+    public PriceFilter getFilter(FilterType filterType) {
+        return null;
+    }
 }

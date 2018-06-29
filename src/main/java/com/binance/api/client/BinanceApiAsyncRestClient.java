@@ -25,7 +25,6 @@ import com.binance.api.client.domain.market.CandlestickInterval;
 import com.binance.api.client.domain.market.OrderBook;
 import com.binance.api.client.domain.market.TickerPrice;
 import com.binance.api.client.domain.market.TickerStatistics;
-import com.binance.api.client.domain.market.info.ExchangeInfo;
 
 import java.util.List;
 
@@ -167,8 +166,6 @@ public interface BinanceApiAsyncRestClient {
   void getBookTickers(BinanceApiCallback<List<BookTicker>> callback);
 
   // Account endpoints
-
-    void getExchangeInfo(BinanceApiCallback<ExchangeInfo> callback);
 
     /**
    * Send in a new order (asynchronous)

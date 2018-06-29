@@ -1,10 +1,10 @@
-package com.binance.api.client.domain.market.info.filter;
+package com.binance.api.client.domain.general.filter.order;
 
 /**
  * The MAX_NUM_ORDERS filter defines the maximum number of orders an account is allowed to have open on a symbol.
  * Note that both "algo" orders and normal orders are counted for this filter.
  */
-public class MaxNumberOrdersFilter implements Filter {
+public class MaxNumberOrdersFilter implements SymbolFilter {
     private int limit;
 
     public int getLimit() {
