@@ -7,12 +7,16 @@ import com.binance.api.client.domain.account.NewOrder;
 import com.binance.api.client.domain.account.NewOrderResponse;
 import com.binance.api.client.domain.account.Order;
 import com.binance.api.client.domain.account.Trade;
+import com.binance.api.client.domain.account.TradeHistoryItem;
 import com.binance.api.client.domain.account.WithdrawHistory;
+import com.binance.api.client.domain.account.WithdrawResult;
 import com.binance.api.client.domain.account.request.AllOrdersRequest;
 import com.binance.api.client.domain.account.request.CancelOrderRequest;
 import com.binance.api.client.domain.account.request.OrderRequest;
 import com.binance.api.client.domain.account.request.OrderStatusRequest;
 import com.binance.api.client.domain.event.ListenKey;
+import com.binance.api.client.domain.general.Asset;
+import com.binance.api.client.domain.general.ExchangeInfo;
 import com.binance.api.client.domain.general.ServerTime;
 import com.binance.api.client.domain.market.AggTrade;
 import com.binance.api.client.domain.market.BookTicker;
@@ -42,6 +46,16 @@ public interface BinanceApiAsyncRestClient {
    */
   void getServerTime(BinanceApiCallback<ServerTime> callback);
 
+  /**
+   * Current exchange trading rules and symbol information
+   */
+  void getExchangeInfo(BinanceApiCallback<ExchangeInfo> callback);
+
+  /**
+   * ALL supported assets and whether or not they can be withdrawn.
+   */
+  void getAllAssets(BinanceApiCallback<List<Asset>> callback);
+
   // Market Data endpoints
 
   /**
@@ -52,6 +66,25 @@ public interface BinanceApiAsyncRestClient {
    * @param callback the callback that handles the response
    */
   void getOrderBook(String symbol, Integer limit, BinanceApiCallback<OrderBook> callback);
+
+  /**
+   * Get recent trades (up to last 500). Weight: 1
+   *
+   * @param symbol ticker symbol (e.g. ETHBTC)
+   * @param limit of last trades (Default 500; max 500.)
+   * @param callback the callback that handles the response
+   */
+  void getTrades(String symbol, Integer limit, BinanceApiCallback<List<TradeHistoryItem>> callback);
+
+  /**
+   * Get older trades. Weight: 5
+   *
+   * @param symbol ticker symbol (e.g. ETHBTC)
+   * @param limit of last trades (Default 500; max 500.)
+   * @param fromId TradeId to fetch from. Default gets most recent trades.
+   * @param callback the callback that handles the response
+   */
+  void getHistoricalTrades(String symbol, Integer limit, Long fromId, BinanceApiCallback<List<TradeHistoryItem>> callback);
 
   /**
    * Get compressed, aggregate trades. Trades that fill at the time, from the same order, with
@@ -103,6 +136,13 @@ public interface BinanceApiAsyncRestClient {
    * @param callback the callback that handles the response
    */
   void get24HrPriceStatistics(String symbol, BinanceApiCallback<TickerStatistics> callback);
+  
+  /**
+   * Get 24 hour price change statistics for all symbols (asynchronous).
+   * 
+   * @param callback the callback that handles the response
+   */
+   void getAll24HrPriceStatistics(BinanceApiCallback<List<TickerStatistics>> callback);
 
   /**
    * Get Latest price for all symbols (asynchronous).
@@ -110,6 +150,14 @@ public interface BinanceApiAsyncRestClient {
    * @param callback the callback that handles the response
    */
   void getAllPrices(BinanceApiCallback<List<TickerPrice>> callback);
+  
+  /**
+   * Get latest price for <code>symbol</code> (asynchronous).
+   * 
+   * @param symbol ticker symbol (e.g. ETHBTC)
+   * @param callback the callback that handles the response
+   */
+   void getPrice(String symbol , BinanceApiCallback<TickerPrice> callback);
 
   /**
    * Get best price/qty on the order book for all symbols (asynchronous).
@@ -216,8 +264,9 @@ public interface BinanceApiAsyncRestClient {
    * @param address address to withdraw to
    * @param amount amount to withdraw
    * @param name description/alias of the address
+   * @param addressTag Secondary address identifier for coins like XRP,XMR etc.
    */
-  void withdraw(String asset, String address, String amount, String name, BinanceApiCallback<Void> callback);
+  void withdraw(String asset, String address, String amount, String name, String addressTag, BinanceApiCallback<WithdrawResult> callback);
 
   /**
    * Fetch account deposit history.

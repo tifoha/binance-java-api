@@ -9,11 +9,15 @@ import com.binance.api.client.domain.account.NewOrder;
 import com.binance.api.client.domain.account.NewOrderResponse;
 import com.binance.api.client.domain.account.Order;
 import com.binance.api.client.domain.account.Trade;
+import com.binance.api.client.domain.account.TradeHistoryItem;
 import com.binance.api.client.domain.account.WithdrawHistory;
+import com.binance.api.client.domain.account.WithdrawResult;
 import com.binance.api.client.domain.account.request.AllOrdersRequest;
 import com.binance.api.client.domain.account.request.CancelOrderRequest;
 import com.binance.api.client.domain.account.request.OrderRequest;
 import com.binance.api.client.domain.account.request.OrderStatusRequest;
+import com.binance.api.client.domain.general.Asset;
+import com.binance.api.client.domain.general.ExchangeInfo;
 import com.binance.api.client.domain.market.AggTrade;
 import com.binance.api.client.domain.market.BookTicker;
 import com.binance.api.client.domain.market.Candlestick;
@@ -51,7 +55,15 @@ public class BinanceApiRestClientImpl implements BinanceApiRestClient {
         return executeSync(binanceApiService.getServerTime()).getServerTime();
     }
 
-    // Market Data endpoints
+  @Override
+  public ExchangeInfo getExchangeInfo() {
+    return executeSync(binanceApiService.getExchangeInfo());
+  }
+
+  @Override
+  public List<Asset> getAllAssets() {
+    return executeSync(binanceApiService.getAllAssets(BinanceApiConstants.ASSET_INFO_API_BASE_URL + "assetWithdraw/getAllAsset.html"));
+  }// Market Data endpoints
 
     @Override
     public OrderBook getOrderBook(String symbol, Integer limit) {
@@ -59,6 +71,16 @@ public class BinanceApiRestClientImpl implements BinanceApiRestClient {
     }
 
     @Override
+  public List<TradeHistoryItem> getTrades(String symbol, Integer limit) {
+    return executeSync(binanceApiService.getTrades(symbol, limit));
+  }
+
+  @Override
+  public List<TradeHistoryItem> getHistoricalTrades(String symbol, Integer limit, Long fromId) {
+    return executeSync(binanceApiService.getHistoricalTrades(symbol, limit, fromId));
+  }
+
+  @Override
     public List<AggTrade> getAggTrades(String symbol, String fromId, Integer limit, Long startTime, Long endTime) {
         return executeSync(binanceApiService.getAggTrades(symbol, fromId, limit, startTime, endTime));
     }
@@ -84,6 +106,16 @@ public class BinanceApiRestClientImpl implements BinanceApiRestClient {
     }
 
     @Override
+  public List<TickerStatistics> getAll24HrPriceStatistics() {
+	return 	executeSync(binanceApiService.getAll24HrPriceStatistics());
+  }
+
+  @Override
+  public TickerPrice getPrice(String symbol) {
+	  return executeSync(binanceApiService.getLatestPrice(symbol));
+  }
+
+  @Override
     public List<TickerPrice> getAllPrices() {
         return executeSync(binanceApiService.getLatestPrices());
     }
@@ -93,24 +125,24 @@ public class BinanceApiRestClientImpl implements BinanceApiRestClient {
         return executeSync(binanceApiService.getBookTickers());
     }
 
-    @Override
+  @Override
     public ExchangeInfo getExchangeInfo() {
         return executeSync(binanceApiService.getExchangeInfo());
     }
 
     @Override
-    public NewOrderResponse newOrder(NewOrder order) {
-        return executeSync(binanceApiService.newOrder(order.getSymbol(), order.getSide(), order.getType(),
-                order.getTimeInForce(), order.getQuantity(), order.getPrice(), order.getStopPrice(), order.getIcebergQty(),
-                order.getRecvWindow(), order.getOrderResponseType(), order.getTimestamp()));
-    }
+  public NewOrderResponse newOrder(NewOrder order) {
+    return executeSync(binanceApiService.newOrder(order.getSymbol(), order.getSide(), order.getType(),
+        order.getTimeInForce(), order.getQuantity(), order.getPrice(), order.getNewClientOrderId(),order.getStopPrice(), order.getIcebergQty(),
+       order.getNewOrderRespType(), order.getRecvWindow(), order.getOrderResponseType(),order.getTimestamp()));
+  }
 
-    @Override
-    public void newOrderTest(NewOrder order) {
-        executeSync(binanceApiService.newOrderTest(order.getSymbol(), order.getSide(), order.getType(),
-                order.getTimeInForce(), order.getQuantity(), order.getPrice(), order.getStopPrice(), order.getIcebergQty(),
-                order.getRecvWindow(), order.getTimestamp()));
-    }
+  @Override
+  public void newOrderTest(NewOrder order) {
+    executeSync(binanceApiService.newOrderTest(order.getSymbol(), order.getSide(), order.getType(),
+        order.getTimeInForce(), order.getQuantity(), order.getPrice(), order.getNewClientOrderId(),order.getStopPrice(), order.getIcebergQty(),
+       order.getNewOrderRespType(), order.getRecvWindow(), order.getTimestamp()));
+  }
 
     // Account endpoints
 
@@ -165,10 +197,10 @@ public class BinanceApiRestClientImpl implements BinanceApiRestClient {
         return getMyTrades(symbol, null, null, BinanceApiConstants.DEFAULT_RECEIVING_WINDOW, System.currentTimeMillis());
     }
 
-    @Override
-    public void withdraw(String asset, String address, String amount, String name) {
-        executeSync(binanceApiService.withdraw(asset, address, amount, name, BinanceApiConstants.DEFAULT_RECEIVING_WINDOW, System.currentTimeMillis()));
-    }
+  @Override
+  public WithdrawResult withdraw(String asset, String address, String amount, String name, String addressTag) {
+    return executeSync(binanceApiService.withdraw(asset, address, amount, name, addressTag,BinanceApiConstants.DEFAULT_RECEIVING_WINDOW, System.currentTimeMillis()));
+  }
 
     @Override
     public DepositHistory getDepositHistory(String asset) {

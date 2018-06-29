@@ -1,8 +1,9 @@
 package com.binance.api.client.domain.account;
 
+import com.binance.api.client.constant.BinanceApiConstants;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.math.BigDecimal;
 
@@ -56,8 +57,16 @@ public class Trade {
     return id;
   }
 
+  @JsonSetter("id")
   public void setId(Long id) {
     this.id = id;
+  }
+
+  @JsonSetter("tradeId")
+  public void setTradeId(Long id) {
+    if (this.id == null) {
+      setId(id);
+    }
   }
 
   public BigDecimal getPrice() {
@@ -134,7 +143,7 @@ public class Trade {
 
   @Override
   public String toString() {
-    return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+    return new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE)
         .append("id", id)
         .append("price", price)
         .append("qty", qty)

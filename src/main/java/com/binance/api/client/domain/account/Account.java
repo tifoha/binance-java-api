@@ -1,7 +1,8 @@
 package com.binance.api.client.domain.account;
 
+import com.binance.api.client.constant.BinanceApiConstants;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
 /**
  * Account information.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Account {
 
   /**
@@ -46,6 +48,14 @@ public class Account {
    */
   private boolean canDeposit;
 
+  /**
+   * Last account update time.
+   */
+  private long updateTime;
+
+  /**
+   * List of asset balances of this account.
+   */
   private List<AssetBalance> balances;
 
   public int getMakerCommission() {
@@ -104,6 +114,14 @@ public class Account {
     this.canDeposit = canDeposit;
   }
 
+  public long getUpdateTime() {
+    return updateTime;
+  }
+
+  public void setUpdateTime(long updateTime) {
+    this.updateTime = updateTime;
+  }
+
   public List<AssetBalance> getBalances() {
     return balances;
   }
@@ -133,7 +151,7 @@ public class Account {
 
   @Override
   public String toString() {
-    return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+    return new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE)
         .append("makerCommission", makerCommission)
         .append("takerCommission", takerCommission)
         .append("buyerCommission", buyerCommission)
@@ -141,6 +159,7 @@ public class Account {
         .append("canTrade", canTrade)
         .append("canWithdraw", canWithdraw)
         .append("canDeposit", canDeposit)
+        .append("updateTime", updateTime)
         .append("balances", balances)
         .toString();
   }
