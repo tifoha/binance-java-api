@@ -1,11 +1,12 @@
 package com.binance.api.client.domain.account;
 
 import com.binance.api.client.constant.BinanceApiConstants;
-import com.binance.api.client.domain.OrderResponseType;
 import com.binance.api.client.domain.OrderSide;
 import com.binance.api.client.domain.OrderType;
 import com.binance.api.client.domain.TimeInForce;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import java.math.BigDecimal;
 
 /**
  * A trade order to enter or exit a position.
@@ -35,12 +36,12 @@ public class NewOrder {
   /**
    * Quantity.
    */
-  private String quantity;
+  private BigDecimal quantity;
 
   /**
    * Price.
    */
-  private String price;
+  private BigDecimal price;
 
   /**
    * A unique id for the order. Automatically generated if not sent.
@@ -68,11 +69,6 @@ public class NewOrder {
   private Long recvWindow;
 
   /**
-   * Set the response JSON. ACK, RESULT, or FULL; default: RESULT.
-   */
-  private OrderResponseType orderResponseType;
-
-  /**
    * Order timestamp.
    */
   private long timestamp;
@@ -80,7 +76,7 @@ public class NewOrder {
   /**
    * Creates a new order with all required parameters.
    */
-  public NewOrder(String symbol, OrderSide side, OrderType type, TimeInForce timeInForce, String quantity) {
+  public NewOrder(String symbol, OrderSide side, OrderType type, TimeInForce timeInForce, BigDecimal quantity) {
     this.symbol = symbol;
     this.side = side;
     this.type = type;
@@ -94,7 +90,7 @@ public class NewOrder {
   /**
    * Creates a new order with all required parameters plus price, which is optional for MARKET orders.
    */
-  public NewOrder(String symbol, OrderSide side, OrderType type, TimeInForce timeInForce, String quantity, String price) {
+  public NewOrder(String symbol, OrderSide side, OrderType type, TimeInForce timeInForce, BigDecimal quantity, BigDecimal price) {
     this(symbol, side, type, timeInForce, quantity);
     this.price = price;
   }
@@ -135,20 +131,20 @@ public class NewOrder {
     return this;
   }
 
-  public String getQuantity() {
+    public BigDecimal getQuantity() {
     return quantity;
   }
 
-  public NewOrder quantity(String quantity) {
+    public NewOrder quantity(BigDecimal quantity) {
     this.quantity = quantity;
     return this;
   }
 
-  public String getPrice() {
+    public BigDecimal getPrice() {
     return price;
   }
 
-  public NewOrder price(String price) {
+    public NewOrder price(BigDecimal price) {
     this.price = price;
     return this;
   }
@@ -207,21 +203,12 @@ public class NewOrder {
     return this;
   }
 
-  public OrderResponseType getOrderResponseType() {
-    return orderResponseType;
-  }
-
-  public NewOrder orderResponseType(OrderResponseType orderResponseType) {
-    this.orderResponseType = orderResponseType;
-    return this;
-  }
-
   /**
    * Places a MARKET buy order for the given <code>quantity</code>.
    *
    * @return a new order which is pre-configured with MARKET as the order type and BUY as the order side.
    */
-  public static NewOrder marketBuy(String symbol, String quantity) {
+  public static NewOrder marketBuy(String symbol, BigDecimal quantity) {
     return new NewOrder(symbol, OrderSide.BUY, OrderType.MARKET, null, quantity);
   }
 
@@ -230,7 +217,7 @@ public class NewOrder {
    *
    * @return a new order which is pre-configured with MARKET as the order type and SELL as the order side.
    */
-  public static NewOrder marketSell(String symbol, String quantity) {
+  public static NewOrder marketSell(String symbol, BigDecimal quantity) {
     return new NewOrder(symbol, OrderSide.SELL, OrderType.MARKET, null, quantity);
   }
 
@@ -239,7 +226,7 @@ public class NewOrder {
    *
    * @return a new order which is pre-configured with LIMIT as the order type and BUY as the order side.
    */
-  public static NewOrder limitBuy(String symbol, TimeInForce timeInForce, String quantity, String price) {
+  public static NewOrder limitBuy(String symbol, TimeInForce timeInForce, BigDecimal quantity, BigDecimal price) {
     return new NewOrder(symbol, OrderSide.BUY, OrderType.LIMIT, timeInForce, quantity, price);
   }
 
@@ -248,7 +235,7 @@ public class NewOrder {
    *
    * @return a new order which is pre-configured with LIMIT as the order type and SELL as the order side.
    */
-  public static NewOrder limitSell(String symbol, TimeInForce timeInForce, String quantity, String price) {
+  public static NewOrder limitSell(String symbol, TimeInForce timeInForce, BigDecimal quantity, BigDecimal price) {
     return new NewOrder(symbol, OrderSide.SELL, OrderType.LIMIT, timeInForce, quantity, price);
   }
 

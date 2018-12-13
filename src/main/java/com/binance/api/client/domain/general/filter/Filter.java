@@ -12,9 +12,10 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @JsonSubTypes.Type(value = LotSizeFilter.class, name = "LOT_SIZE"),
         @JsonSubTypes.Type(value = MinNotionalFilter.class, name = "MIN_NOTIONAL"),
         @JsonSubTypes.Type(value = MaxNumberOrdersFilter.class, name = "MAX_NUM_ORDERS"),
-        @JsonSubTypes.Type(value = MaxAlgorithmOrdersFilter.class, name = "MAX_ALGO_ORDERS"),
+        @JsonSubTypes.Type(value = MaxNumberAlgorithmOrdersFilter.class, name = "MAX_NUM_ALGO_ORDERS"),
         @JsonSubTypes.Type(value = MaxNumberOrdersExchangeFilter.class, name = "EXCHANGE_MAX_NUM_ORDERS"),
-        @JsonSubTypes.Type(value = MaxAlgorithmOrdersExchangeFilter.class, name = "EXCHANGE_MAX_ALGO_ORDERS")
+        @JsonSubTypes.Type(value = MaxAlgorithmOrdersExchangeFilter.class, name = "EXCHANGE_MAX_ALGO_ORDERS"),
+        @JsonSubTypes.Type(value = MaxIcebergPartsFilter.class, name = "ICEBERG_PARTS")
 })
 public interface Filter {
 }

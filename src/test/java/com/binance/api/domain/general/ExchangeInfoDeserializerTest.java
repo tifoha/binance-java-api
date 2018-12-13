@@ -7,17 +7,13 @@ import com.binance.api.client.domain.general.filter.order.MinNotionalFilter;
 import com.binance.api.client.domain.general.filter.order.PriceFilter;
 import com.binance.api.client.domain.general.filter.order.SymbolFilter;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
 import static java.math.BigDecimal.valueOf;
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
 /**
@@ -31,7 +27,7 @@ public class ExchangeInfoDeserializerTest {
         "  \"timezone\": \"UTC\",\n" +
         "  \"serverTime\": 1508631584636,\n" +
         "  \"rateLimits\": [{\n" +
-        "      \"rateLimitType\": \"REQUESTS\",\n" +
+            "      \"rateLimitType\": \"REQUEST_WEIGHT\",\n" +
         "      \"interval\": \"MINUTE\",\n" +
         "      \"limit\": 1200\n" +
         "    },\n" +
@@ -81,7 +77,7 @@ public class ExchangeInfoDeserializerTest {
 
       List<RateLimit> rateLimits = exchangeInfo.getRateLimits();
       assertEquals(rateLimits.size(), 3);
-      testRateLimit(rateLimits.get(0), RateLimitType.REQUESTS, RateLimitInterval.MINUTE, 1200);
+        testRateLimit(rateLimits.get(0), RateLimitType.REQUEST_WEIGHT, RateLimitInterval.MINUTE, 1200);
       testRateLimit(rateLimits.get(1), RateLimitType.ORDERS, RateLimitInterval.SECOND, 10);
       testRateLimit(rateLimits.get(2), RateLimitType.ORDERS, RateLimitInterval.DAY, 100000);
 

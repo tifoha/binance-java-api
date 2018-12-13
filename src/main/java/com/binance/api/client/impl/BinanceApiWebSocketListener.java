@@ -1,18 +1,20 @@
 package com.binance.api.client.impl;
 
-import java.io.IOException;
-import okhttp3.Response;
-import okhttp3.WebSocket;
-import okhttp3.WebSocketListener;
 import com.binance.api.client.BinanceApiCallback;
 import com.binance.api.client.exception.BinanceApiException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import okhttp3.Response;
+import okhttp3.WebSocket;
+import okhttp3.WebSocketListener;
+
+import java.io.IOException;
 
 /**
  * Binance API WebSocket listener.
  */
 public class BinanceApiWebSocketListener<T> extends WebSocketListener {
+    private static final ObjectMapper MAPPER = new ObjectMapper();
 
   private BinanceApiCallback<T> callback;
 
@@ -34,13 +36,12 @@ public class BinanceApiWebSocketListener<T> extends WebSocketListener {
 
   @Override
   public void onMessage(WebSocket webSocket, String text) {
-    ObjectMapper mapper = new ObjectMapper();
     try {
-      T event = null;
+        T event;
       if (eventClass == null) {
-        event = mapper.readValue(text, eventTypeReference);
+          event = MAPPER.readValue(text, eventTypeReference);
       } else {
-        event = mapper.readValue(text, eventClass);
+          event = MAPPER.readValue(text, eventClass);
       }
       callback.onResponse(event);
     } catch (IOException e) {
@@ -59,4 +60,9 @@ public class BinanceApiWebSocketListener<T> extends WebSocketListener {
       callback.onFailure(t);
     }
   }
+
+    @Override
+    public void onClosed(WebSocket webSocket, int code, String reason) {
+        super.onClosed(webSocket, code, reason);
+    }
 }

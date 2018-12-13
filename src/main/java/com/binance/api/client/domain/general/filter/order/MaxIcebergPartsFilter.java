@@ -3,10 +3,10 @@ package com.binance.api.client.domain.general.filter.order;
 import com.binance.api.client.domain.account.NewOrder;
 
 /**
- * The MAX_NUM_ORDERS filter defines the maximum number of orders an account is allowed to have open on a symbol.
+ * The ICEBERG_PARTS filter defines the maximum number of orders an account is allowed to have open on a symbol.
  * Note that both "algo" orders and normal orders are counted for this filter.
  */
-public class MaxNumberOrdersFilter implements SymbolFilter {
+public class MaxIcebergPartsFilter implements SymbolFilter {
     private int limit;
 
     public int getLimit() {

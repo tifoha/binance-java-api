@@ -9,7 +9,7 @@ public enum FilterType {
   LOT_SIZE,
   MIN_NOTIONAL,
   MAX_NUM_ORDERS,
-  MAX_ALGO_ORDERS,
+    MAX_NUM_ALGO_ORDERS,
 
   // Exchange
   EXCHANGE_MAX_NUM_ORDERS,

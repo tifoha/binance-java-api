@@ -3,11 +3,7 @@ package com.binance.api.client.impl;
 import com.binance.api.client.BinanceApiCallback;
 import com.binance.api.client.BinanceApiWebSocketClient;
 import com.binance.api.client.constant.BinanceApiConstants;
-import com.binance.api.client.domain.event.AggTradeEvent;
-import com.binance.api.client.domain.event.AllMarketTickersEvent;
-import com.binance.api.client.domain.event.CandlestickEvent;
-import com.binance.api.client.domain.event.DepthEvent;
-import com.binance.api.client.domain.event.UserDataUpdateEvent;
+import com.binance.api.client.domain.event.*;
 import com.binance.api.client.domain.market.CandlestickInterval;
 import okhttp3.Dispatcher;
 import okhttp3.OkHttpClient;
@@ -16,6 +12,7 @@ import okhttp3.WebSocket;
 
 import java.io.Closeable;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Binance API WebSocket client implementation using OkHttp.
@@ -27,7 +24,10 @@ public class BinanceApiWebSocketClientImpl implements BinanceApiWebSocketClient,
     public BinanceApiWebSocketClientImpl() {
         Dispatcher d = new Dispatcher();
         d.setMaxRequestsPerHost(100);
-        this.client = new OkHttpClient.Builder().dispatcher(d).build();
+        this.client = new OkHttpClient.Builder()
+                .dispatcher(d)
+                .pingInterval(1, TimeUnit.SECONDS)
+                .build();
     }
 
     public Closeable onDepthEvent(String symbol, BinanceApiCallback<DepthEvent> callback) {
