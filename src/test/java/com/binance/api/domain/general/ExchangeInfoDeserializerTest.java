@@ -10,10 +10,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 import static java.math.BigDecimal.valueOf;
+import static java.util.Arrays.asList;
+import static org.hamcrest.Matchers.comparesEqualTo;
 import static org.junit.Assert.*;
 
 /**
@@ -90,24 +92,24 @@ public class ExchangeInfoDeserializerTest {
       assertEquals(symbolInfo.getBasePrecision(), 8);
       assertEquals(symbolInfo.getQuote(), "ETH");
       assertEquals(symbolInfo.getQuotePrecision(), 8);
-      assertEquals(symbolInfo.getOrderTypes(), Arrays.asList(OrderType.LIMIT, OrderType.MARKET));
+      assertEquals(symbolInfo.getOrderTypes(), new HashSet<>(asList(OrderType.LIMIT, OrderType.MARKET)));
       assertFalse(symbolInfo.isIcebergAllowed());
 
       List<SymbolFilter> symbolFilters = symbolInfo.getFilters();
       assertEquals(symbolFilters.size(), 3);
 
       PriceFilter priceFilter = (PriceFilter) symbolFilters.get(0);
-      assertEquals(priceFilter.getMinPrice(), valueOf(0.00000100));
-      assertEquals(priceFilter.getMaxPrice(), valueOf(100000.00000000));
-      assertEquals(priceFilter.getTickSize(), valueOf(0.00000100));
+      assertThat(priceFilter.getMinPrice(), comparesEqualTo(valueOf(0.00000100)));
+      assertThat(priceFilter.getMaxPrice(), comparesEqualTo(valueOf(100000.00000000)));
+      assertThat(priceFilter.getTickSize(), comparesEqualTo(valueOf(0.00000100)));
 
       LotSizeFilter lotSizeFilter = (LotSizeFilter) symbolFilters.get(1);
-      assertEquals(lotSizeFilter.getMinQty(), valueOf(0.00100000));
-      assertEquals(lotSizeFilter.getMaxQty(), valueOf(100000.00000000));
-      assertEquals(lotSizeFilter.getStepSize(), valueOf(0.00100000));
+      assertThat(lotSizeFilter.getMinQty(), comparesEqualTo(valueOf(0.00100000)));
+      assertThat(lotSizeFilter.getMaxQty(), comparesEqualTo(valueOf(100000.00000000)));
+      assertThat(lotSizeFilter.getStepSize(), comparesEqualTo(valueOf(0.00100000)));
 
       MinNotionalFilter minNotionalFilter = (MinNotionalFilter) symbolFilters.get(2);
-      assertEquals(minNotionalFilter.getMinNotional(), valueOf(0.00100000));
+      assertThat(minNotionalFilter.getMinNotional(), comparesEqualTo(valueOf(0.00100000)));
     } catch (IOException e) {
       fail();
     }
