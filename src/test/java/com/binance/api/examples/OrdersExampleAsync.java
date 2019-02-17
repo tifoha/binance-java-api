@@ -34,7 +34,7 @@ public class OrdersExampleAsync {
 
     // Canceling an order
     client.cancelOrder(new CancelOrderRequest("LINKETH", 756703L),
-        response -> System.out.println("Order has been canceled."));
+        response -> System.out.println(response));
 
     // Placing a test LIMIT order
       client.newOrderTest(limitBuy("LINKETH", TimeInForce.GTC, new BigDecimal("1000"), new BigDecimal("0.0001")),
