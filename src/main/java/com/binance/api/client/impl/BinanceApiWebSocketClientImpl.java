@@ -6,7 +6,6 @@ import com.binance.api.client.constant.BinanceApiConstants;
 import com.binance.api.client.domain.event.*;
 import com.binance.api.client.domain.market.CandlestickInterval;
 import com.fasterxml.jackson.core.type.TypeReference;
-
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.WebSocket;
@@ -14,7 +13,6 @@ import okhttp3.WebSocket;
 import java.io.Closeable;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**

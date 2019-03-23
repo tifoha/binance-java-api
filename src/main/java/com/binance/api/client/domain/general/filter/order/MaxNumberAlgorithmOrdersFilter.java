@@ -7,14 +7,14 @@ import com.binance.api.client.domain.account.NewOrder;
  * "Algo" orders are STOP_LOSS, STOP_LOSS_LIMIT, TAKE_PROFIT, and TAKE_PROFIT_LIMIT orders.
  */
 public class MaxNumberAlgorithmOrdersFilter implements SymbolFilter {
-    private int limit;
+    private int maxNumAlgoOrders;
 
-    public int getLimit() {
-        return limit;
+    public int getMaxNumAlgoOrders() {
+        return maxNumAlgoOrders;
     }
 
-    public void setLimit(int limit) {
-        this.limit = limit;
+    public void setMaxNumAlgoOrders(int maxNumAlgoOrders) {
+        this.maxNumAlgoOrders = maxNumAlgoOrders;
     }
 
     @Override
@@ -25,7 +25,7 @@ public class MaxNumberAlgorithmOrdersFilter implements SymbolFilter {
     @Override
     public String toString() {
         return "MaxNumberAlgorithmOrdersFilter{" +
-                "limit=" + limit +
+                "maxNumAlgoOrders=" + maxNumAlgoOrders +
                 '}';
     }
 }

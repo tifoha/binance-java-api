@@ -13,6 +13,8 @@ public class MinNotionalFilter implements SymbolFilter {
     public static final MathContext MC = new MathContext(15);
 
     private BigDecimal minNotional;
+    private boolean applyToMarket;
+    private int avgPriceMins;
 
     public BigDecimal getMinNotional() {
         return minNotional;
@@ -29,6 +31,22 @@ public class MinNotionalFilter implements SymbolFilter {
         if (total.compareTo(minNotional) < 0) {
             throw new LowNotionException(minNotional, total);
         }
+    }
+
+    public boolean isApplyToMarket() {
+        return applyToMarket;
+    }
+
+    public void setApplyToMarket(boolean applyToMarket) {
+        this.applyToMarket = applyToMarket;
+    }
+
+    public int getAvgPriceMins() {
+        return avgPriceMins;
+    }
+
+    public void setAvgPriceMins(int avgPriceMins) {
+        this.avgPriceMins = avgPriceMins;
     }
 
     @Override
