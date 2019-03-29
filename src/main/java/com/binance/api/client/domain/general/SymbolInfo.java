@@ -9,8 +9,10 @@ import java.util.List;
 import java.util.Set;
 
 public class SymbolInfo {
+    @JsonProperty
     private String symbol;
 
+    @JsonProperty
     private SymbolStatus status;
 
     @JsonProperty("quoteAsset")
@@ -25,10 +27,19 @@ public class SymbolInfo {
     @JsonProperty("baseAssetPrecision")
     private int quotePrecision;
 
+    @JsonProperty
     private Set<OrderType> orderTypes;
 
+    @JsonProperty
     private boolean icebergAllowed;
 
+    @JsonProperty
+    private boolean isSpotTradingAllowed;
+
+    @JsonProperty
+    private boolean isMarginTradingAllowed;
+
+    @JsonProperty
     private List<SymbolFilter> filters;
 
     public String getSymbol() {
@@ -93,6 +104,22 @@ public class SymbolInfo {
 
     public void setIcebergAllowed(boolean icebergAllowed) {
         this.icebergAllowed = icebergAllowed;
+    }
+
+    public boolean isSpotTradingAllowed() {
+        return isSpotTradingAllowed;
+    }
+
+    public void setSpotTradingAllowed(boolean spotTradingAllowed) {
+        isSpotTradingAllowed = spotTradingAllowed;
+    }
+
+    public boolean isMarginTradingAllowed() {
+        return isMarginTradingAllowed;
+    }
+
+    public void setMarginTradingAllowed(boolean marginTradingAllowed) {
+        isMarginTradingAllowed = marginTradingAllowed;
     }
 
     public List<SymbolFilter> getFilters() {
